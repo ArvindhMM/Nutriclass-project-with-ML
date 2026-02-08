@@ -20,7 +20,7 @@ print(df.isnull().sum())
 print("\nNumber of duplicate rows:")
 print(df.duplicated().sum())
 
-os.makedirs("../visuals/eda", exist_ok=True)
+os.makedirs("./visuals/eda", exist_ok=True)
 
 plt.figure(figsize=(10, 5))
 df['Food_Name'].value_counts().plot(kind='bar')
@@ -28,7 +28,7 @@ plt.title("Food Class Distribution")
 plt.xlabel("Food Name")
 plt.ylabel("Count")
 plt.tight_layout()
-plt.savefig("../visuals/eda/food_class_distribution.png")
+plt.savefig("./visuals/eda/food_class_distribution.png")
 plt.show()
 
 numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
@@ -37,5 +37,5 @@ for col in numeric_cols:
     sns.histplot(df[col].dropna(), kde=True)
     plt.title(f"Distribution of {col}")
     plt.tight_layout()
-    plt.savefig(f"../visuals/eda/{col}_distribution.png")
+    plt.savefig(f"./visuals/eda/{col}_distribution.png")
     plt.show()

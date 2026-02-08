@@ -16,8 +16,6 @@ import matplotlib.pyplot as plt
 import os
 
 
-
-
 X = pd.read_csv("./data/processed/X_processed.csv")
 y = pd.read_csv("./data/processed/y_processed.csv")
 
@@ -26,6 +24,7 @@ y = y.values.ravel()
 print("Feature matrix shape:", X.shape)
 print("Target shape:", y.shape)
 
+#train test split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y,
     test_size=0.2,
@@ -33,6 +32,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
+#model evaluation
 def evaluate_model(model, X_test, y_test):
     y_pred = model.predict(X_test)
 
@@ -43,6 +43,7 @@ def evaluate_model(model, X_test, y_test):
         "F1_Score": f1_score(y_test, y_pred, average="weighted")
     }
 
+#logistic regression
 log_reg = LogisticRegression(max_iter=1000)
 
 
@@ -54,6 +55,7 @@ print("Logistic Regression Results:")
 for metric, value in log_reg_results.items():
     print(f"{metric}: {value:.4f}")
 
+#decision tree
 dt_model = DecisionTreeClassifier(
     random_state=42
 )
@@ -66,6 +68,7 @@ print("\nDecision Tree Results:")
 for metric, value in dt_results.items():
     print(f"{metric}: {value:.4f}")
 
+#random forest
 rf_model = RandomForestClassifier(
     n_estimators=200,
     random_state=42,
@@ -80,6 +83,7 @@ print("\nRandom Forest Results:")
 for metric, value in rf_results.items():
     print(f"{metric}: {value:.4f}")
 
+#KNN
 knn = KNeighborsClassifier(n_neighbors=60, metric="euclidean")
 knn.fit(X_train, y_train)
 
@@ -90,6 +94,7 @@ print("\nKNN Results:")
 for metric, value in knn_results.items():
     print(f"{metric}: {value:.4f}")
 
+#SVM
 svm_model = SVC(
     kernel="rbf",
     C=1.0,
@@ -104,6 +109,7 @@ print("\nSVM Results:")
 for metric, value in svm_results.items():
     print(f"{metric}: {value:.4f}")
 
+#Gradient Boosting
 gb_model = GradientBoostingClassifier(
     n_estimators=150,
     learning_rate=0.1,
@@ -119,7 +125,7 @@ print("\nGradient Boosting Results:")
 for metric, value in gb_results.items():
     print(f"{metric}: {value:.4f}")
 
-
+#XGBoost
 xgb_model = XGBClassifier(
     n_estimators=200,
     learning_rate=0.1,
@@ -141,6 +147,7 @@ print("\nXGBoost Results:")
 for metric, value in xgb_results.items():
     print(f"{metric}: {value:.4f}")
 
+#confusion matrices
 def plot_confusion_matrix(model, X_test, y_test, model_name):
     y_pred = model.predict(X_test)
     cm = confusion_matrix(y_test, y_pred)
@@ -164,6 +171,7 @@ plot_confusion_matrix(svm_model, X_test, y_test, "SVM")
 plot_confusion_matrix(gb_model, X_test, y_test, "Gradient Boosting")
 plot_confusion_matrix(xgb_model, X_test, y_test, "XGBoost")
 
+#Model comparison
 model_names = [
     "Logistic Regression",
     "Decision Tree",

@@ -12,11 +12,13 @@ df = pd.read_csv(DATA_PATH)
 
 print("Initial shape:", df.shape)
 
+#Dropping duplictaes
 df = df.drop_duplicates()
 print("Shape after removing duplicates:", df.shape)
 
 numeric_cols = df.select_dtypes(include=["float64", "int64"]).columns
 
+#Filling missing values with Medeian
 for col in numeric_cols:
     median_value = df[col].median()
     df[col] = df[col].fillna(median_value)
@@ -24,6 +26,7 @@ for col in numeric_cols:
 print("Missing values after imputation:")
 print(df.isnull().sum())
 
+#Capping outliers with IQR
 def cap_outliers_iqr(df, columns):
     for col in columns:
         Q1 = df[col].quantile(0.25)
@@ -46,7 +49,7 @@ print("Outlier capping applied using IQR method.")
 # Target column
 target_col = "Food_Name"
 
-# Numeric features (already identified earlier)
+# Numeric features (excluding target)
 numeric_cols = df.select_dtypes(include=["float64", "int64"]).columns.tolist()
 
 # Categorical features (excluding target)
@@ -55,6 +58,7 @@ categorical_cols = ["Meal_Type", "Preparation_Method"]
 # Boolean features
 boolean_cols = ["Is_Vegan", "Is_Gluten_Free"]
 
+#drop target 
 X = df.drop(columns=[target_col])
 y = df[target_col]
 
