@@ -146,18 +146,6 @@ Feature importance analysis using the Gradient Boosting model highlights the mos
 This project focuses on classification rather than recommendation.  
 In strict diet planning scenarios, a single precise food choice is required to ensure nutritional compliance, making classification the appropriate approach.
 
----
-
-## Project Structure
-
-Nutriclass/
-├── README.md
-├── src/
-├── data/
-├── visuals/
-└── reports/
-
----
 
 ## Conclusion
 
